@@ -1,0 +1,29 @@
+{
+  "name": "js_vue-kanban",
+  "version": "1.0.0",
+  "description": "A kanban monorepo about vue, express, mongo and node",
+  "private": true,
+  "workspaces": [
+    "JS_Vue-Kanban_client/*",
+    "JS_Vue-Kanban_server/*"
+  ],
+  "scripts": {
+    "clean": "npm --prefix ./JS_Vue-Kanban_client run clean && npm --prefix ./JS_Vue-Kanban_server run clean",
+    "init": "npm --prefix ./JS_Vue-Kanban_client run init && npm --prefix ./JS_Vue-Kanban_server run init",
+    "start:client": "npm --prefix ./JS_Vue-Kanban_client run serve",
+    "start:server": "npm --prefix ./JS_Vue-Kanban_server run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agerard57/JS_Vue-Kanban.git"
+  },
+  "keywords": [
+    "mongodb;vue;express;node;js"
+  ],
+  "author": "agerard57",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agerard57/JS_Vue-Kanban/issues"
+  },
+  "homepage": "https://github.com/agerard57/JS_Vue-Kanban#readme"
+}
