@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const TodosSchema = mongoose.Schema(
   {
-    id: { type: Number, default: Date.now() }, // Date.now as id is a clever way to se unique identifiers
+    id: { type: Number, default: Date.now }, // Date.now as id is a clever way to se unique identifiers
     title: { type: String, required: true },
     description: { type: String, required: true },
     list: {

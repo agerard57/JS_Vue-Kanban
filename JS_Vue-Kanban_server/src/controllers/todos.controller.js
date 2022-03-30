@@ -13,24 +13,28 @@ exports.getOne = (req, res) => {
   });
 };
 
-exports.add = (req, _res) => {
+exports.add = (req, res) => {
   const addOptions = {
     title: req.body.title,
     description: req.body.description,
     list: req.body.list,
   };
+  console.log(req.body);
 
   const todo = new TodosModel(addOptions);
 
-  todo.save((err, res) => {
-    if (err) res.send(err);
-    res.json({
-      message: "Added!",
+  todo
+    .save()
+    .then((message) => {
+      res.json(message);
+    })
+    .catch((error) => {
+      res.status(500);
+      res.json(error);
     });
-  });
 };
 
-exports.update = (req, _res) => {
+exports.update = (req, res) => {
   const updateOptions = {
     title: req.body.title,
     description: req.body.description,
@@ -38,12 +42,14 @@ exports.update = (req, _res) => {
   };
   const findById = { id: req.params.id };
 
-  TodosModel.findOneAndUpdate(findById, updateOptions, (_err, res) => {
-    if (err) res.send(err);
-    res.json({
-      message: "Updated!",
+  TodosModel.findOneAndUpdate(findById, updateOptions)
+    .then((message) => {
+      res.json(message);
+    })
+    .catch((error) => {
+      res.status(500);
+      res.json(error);
     });
-  });
 };
 
 exports.delete = (req, res) => {
