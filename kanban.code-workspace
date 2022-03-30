@@ -35,7 +35,15 @@
     "[markdown]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "liveServer.settings.multiRootWorkspaceName": "CLIENT"
+    "liveServer.settings.multiRootWorkspaceName": "CLIENT",
+    "cSpell.words": [
+      "Kanban",
+      "Middlewares",
+      "Todos",
+      "agerard",
+      "esbenp",
+      "todohighlight"
+    ]
   },
   "extensions": {
     "recommendations": [
