@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const TaskSchema = mongoose.Schema(
+const TodosSchema = mongoose.Schema(
   {
     id: { type: Number, default: Date.now() }, // Date.now as id is a clever way to se unique identifiers
     title: { type: String, required: true },
-    description: { type: Array, required: true },
+    description: { type: String, required: true },
     list: {
       type: String,
       required: true,
@@ -15,8 +15,8 @@ const TaskSchema = mongoose.Schema(
   { toJSON: { getters: true } }
 );
 
-TaskSchema.index({ id: 1 }, { unique: true });
+TodosSchema.index({ id: 1 }, { unique: true });
 
-const TaskModel = mongoose.model("tasks", TaskSchema);
+const TodosModel = mongoose.model("todos", TodosSchema);
 
-module.exports = TaskModel;
+module.exports = TodosModel;

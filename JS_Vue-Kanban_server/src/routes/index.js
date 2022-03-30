@@ -14,6 +14,7 @@ module.exports = function routes(app) {
   // ///////
   // Routes
   require("./home.routes")(app);
+  require("./todos.routes")(app);
 
   // ////////////////////////////////////////
   // Redirection in case an url doesn't exist
