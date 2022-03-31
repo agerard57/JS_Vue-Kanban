@@ -8,8 +8,8 @@ const TodosSchema = mongoose.Schema(
     list: {
       type: String,
       required: true,
-      default: "TO-DO",
-      get: (list) => list.toUpperCase(),
+      default: "todo",
+      set: (list) => list.toUpperCase(),
     },
   },
   { toJSON: { getters: true } }
