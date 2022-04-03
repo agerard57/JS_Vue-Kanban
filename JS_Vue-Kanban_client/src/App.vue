@@ -1,54 +1,48 @@
 <template>
   <div id="app">
-    <h1 class="h3 mb-3" id="page-title">Kanban</h1>
-
-    <main class="content">
-      <div class="container p-0">
-        <div class="row">
-          <kanban-column
-            v-for="column in KanbanColumns"
-            :key="column.title"
-            v-bind:title="column.title"
-            v-bind:description="column.description"
-          />
-        </div>
-      </div>
-    </main>
+    <PageHeader />
+    <h2 id="page-title" class="text-center">{{ $route.name }}</h2>
+    <router-view />
   </div>
 </template>
 
 <script>
-import KanbanColumn from "./components/KanbanColumn.vue";
-
+import PageHeader from "./components/layout/PageHeader";
 export default {
-  name: "App",
+  name: "app",
   components: {
-    KanbanColumn,
+    PageHeader,
   },
-  data: () => ({
-    KanbanColumns: [
-      { title: "Todo", description: "See all tasks you have yet to do!" },
-      {
-        title: "In progress",
-        description: "See all tasks you are currently doing!",
-      },
-      { title: "Done", description: "Don't worry about those tasks anymore!" },
-    ],
-  }),
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #666;
 }
 
 #page-title {
+  margin-top: 60px;
   padding-bottom: 20px;
 }
 </style>
