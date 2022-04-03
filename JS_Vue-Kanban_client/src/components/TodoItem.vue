@@ -19,6 +19,8 @@
             -->
           </div>
           <a class="btn btn-outline-primary btn-sm" href="#">View</a>
+          <a class="btn btn-outline-secondary btn-sm" href="#">Edit</a>
+          <a class="btn btn-outline-danger btn-sm" href="#">Delete</a>
         </div>
       </div>
       <a href="#" class="btn btn-primary btn-block" v-if="index == lastTodo"
@@ -56,8 +58,6 @@ export default {
         this.todos = filteredResults;
       });
   },
-  methods: {},
-
   computed: {
     lastTodo() {
       return (
@@ -73,5 +73,9 @@ export default {
 img {
   max-width: 300px;
   height: auto;
+}
+
+.btn-sm {
+  margin: 10px;
 }
 </style>
