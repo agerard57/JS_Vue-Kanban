@@ -4,11 +4,7 @@
       <div class="card mb-3 bg-light">
         <div class="card-body p-3">
           <div class="float-right mr-n2">
-            <label class="custom-control custom-checkbox">
-              <!-- checked="" -->
-              <input type="checkbox" class="custom-control-input" />
-              <span class="custom-control-label"></span>
-            </label>
+            <favourite-button v-bind:is-favourite="todo.fav" />
           </div>
           <h4>{{ todo.title }}</h4>
           <p>{{ todo.description }}</p>
@@ -23,35 +19,32 @@
           <a class="btn btn-outline-danger btn-sm" href="#">Delete</a>
         </div>
       </div>
-      <a href="#" class="btn btn-primary btn-block" v-if="index == lastTodo"
-        >Add new</a
-      >
+      <div class="card-body p-3" v-if="index == lastTodo">
+        <a href="#" class="btn btn-primary btn-block">Add new</a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-const newHeader = new Headers();
-const url = "http://localhost:3000/todos";
-const options = {
-  method: "GET",
-  headers: newHeader,
-  mode: "cors",
-  cache: "default",
-};
+import FavouriteButton from "./FavouriteButton.vue";
+import axios from "axios";
 
 export default {
   name: "TodoItem",
   props: ["columnTitle"],
+  components: { FavouriteButton },
   data: () => ({
     error: "",
     todos: [],
   }),
 
   mounted() {
-    fetch(url, options)
-      .then((response) => response.json())
+    axios
+      .get("http://localhost:3000/todos")
+      .then((response) => (this.todos = response.data))
       .then((results) => {
+        console.log(results);
         const filteredResults = results.filter(
           (element) => element.list === this.columnTitle
         );
