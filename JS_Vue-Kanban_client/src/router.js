@@ -19,6 +19,11 @@ export default new Router({
       component: () => import("./views/TodoList.vue"),
     },
     {
+      path: "/add",
+      name: "Add a new task",
+      component: () => import("./views/TaskForm.vue"),
+    },
+    {
       path: "*",
       name: "Page not found",
       component: () => import("./views/NotFound.vue"),
