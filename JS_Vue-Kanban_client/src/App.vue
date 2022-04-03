@@ -11,7 +11,6 @@
             v-bind:title="column.title"
             v-bind:description="column.description"
           />
-          <!--<TodoItem />-->
         </div>
       </div>
     </main>
