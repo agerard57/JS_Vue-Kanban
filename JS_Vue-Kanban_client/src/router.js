@@ -24,6 +24,18 @@ export default new Router({
       component: () => import("./views/TaskForm.vue"),
     },
     {
+      path: "/task/:id",
+      props: true,
+      name: "View task",
+      component: () => import("./views/TaskForm.vue"),
+    },
+    {
+      path: "/edit/:id",
+      props: true,
+      name: "Edit task",
+      component: () => import("./views/TaskForm.vue"),
+    },
+    {
       path: "*",
       name: "Page not found",
       component: () => import("./views/NotFound.vue"),

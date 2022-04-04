@@ -115,6 +115,20 @@ export default {
       fav: "",
     },
   }),
+  created() {
+    axios
+      .get(`http://localhost:3000/todos/${this.id}`)
+      .then((task) => {
+        console.log(task);
+        this.form.title = task.data.title;
+        this.form.description = task.data.description;
+        this.form.list = task.data.list.toLowerCase();
+        this.form.fav = task.data.fav;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   methods: {
     submitAddTaskForm() {
       axios

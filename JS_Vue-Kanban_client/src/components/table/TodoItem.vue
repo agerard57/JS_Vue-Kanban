@@ -14,9 +14,7 @@
             <small>{{ todo.list }}</small> 
             -->
           </div>
-          <a class="btn btn-outline-primary btn-sm" href="#">View</a>
-          <a class="btn btn-outline-secondary btn-sm" href="#">Edit</a>
-          <a class="btn btn-outline-danger btn-sm" href="#">Delete</a>
+          <card-buttons v-bind:id="todo.id" />
         </div>
       </div>
       <div class="card-body p-3" v-if="index == lastTodo">
@@ -27,13 +25,14 @@
 </template>
 
 <script>
+import CardButtons from "./CardButtons.vue";
 import FavouriteButton from "./FavouriteButton.vue";
 import axios from "axios";
 
 export default {
   name: "TodoItem",
   props: ["columnTitle"],
-  components: { FavouriteButton },
+  components: { CardButtons, FavouriteButton },
   data: () => ({
     error: "",
     todos: [],
