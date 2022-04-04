@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- TODO MAKE THIS SUBMITTABLE FOR BOTH UPDATE AND ADD -->
     <form v-on:submit.prevent="submitTaskForm">
       <fieldset :disabled="this.urlContains('task')">
         <div class="form-group">
@@ -119,14 +118,6 @@
         </button>
       </div>
     </form>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
   </div>
 </template>
 
@@ -145,7 +136,6 @@ export default {
     },
   }),
   created() {
-    console.log(this.list);
     if (this.urlContains("edit") || this.urlContains("task"))
       axios
         .get(`http://localhost:3000/todos/${this.id}`)
@@ -190,3 +180,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@import "../styles/taskForm.css";
+</style>
