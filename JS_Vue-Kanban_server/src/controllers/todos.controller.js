@@ -18,6 +18,7 @@ exports.add = (req, res) => {
     title: req.body.title,
     description: req.body.description,
     list: req.body.list,
+    fav: req.body.fav,
   };
   console.log(req.body);
 
@@ -39,6 +40,7 @@ exports.update = (req, res) => {
     title: req.body.title,
     description: req.body.description,
     list: req.body.list,
+    fav: req.body.fav,
   };
   const findById = { id: req.params.id };
 

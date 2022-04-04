@@ -1,23 +1,14 @@
 <template>
-  <main class="container p-0">
-    <div class="row">
-      <kanban-column
-        v-for="column in KanbanColumns"
-        :key="column.title"
-        v-bind:title="column.title"
-        v-bind:description="column.description"
-      />
-    </div>
-  </main>
+  <tasks-table v-bind:data="KanbanColumns" />
 </template>
 
 <script>
-import KanbanColumn from "../components/list/KanbanColumn.vue";
+import TasksTable from "../components/table/TasksTable.vue";
 
 export default {
   name: "App",
   components: {
-    KanbanColumn,
+    TasksTable,
   },
   data: () => ({
     KanbanColumns: [

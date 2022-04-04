@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-lg-4 col-xl-4">
+  <div v-bind:class="['col-12', 'col-lg-' + colSize, 'col-xl-' + colSize]">
     <div class="card card-border-primary">
       <div class="card-header">
         <h5 class="card-title">{{ title }}</h5>
@@ -18,7 +18,7 @@ import TodoItem from "./TodoItem.vue";
 export default {
   name: "KanbanColumn",
   components: { TodoItem },
-  props: ["title", "description"],
+  props: ["title", "description", "colSize"],
 };
 </script>
 
