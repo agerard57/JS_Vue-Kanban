@@ -5,8 +5,6 @@
       <router-link :to="{ name: 'Home page' }">Home</router-link> |
       <router-link :to="{ name: 'Tasks lists' }">List</router-link> |
       <router-link :to="{ name: 'Add a new task' }">Add task</router-link>
-      <!-- TODO REMOVE -->
-      <router-link :to="{ name: 'Page not found' }">DELETE THIS</router-link>
     </div>
   </header>
 </template>
