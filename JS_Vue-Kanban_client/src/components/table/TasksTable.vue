@@ -8,7 +8,6 @@
         v-bind:description="column.description"
         v-bind:col-size="getColSize"
       />
-      <p>{{ getSize }}</p>
     </div>
   </main>
 </template>
