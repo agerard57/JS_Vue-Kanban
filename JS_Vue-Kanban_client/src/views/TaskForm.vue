@@ -50,6 +50,7 @@
               class="custom-select"
               required="required"
               aria-describedby="listHelpBlock"
+              :disabled="this.list !== undefined"
             >
               <option value="todo">Todo</option>
               <option value="in progress">In progress</option>
@@ -134,7 +135,7 @@ import axios from "axios";
 
 export default {
   name: "TodoItem",
-  props: ["id"],
+  props: ["id", "list"],
   data: () => ({
     form: {
       title: "",
@@ -144,7 +145,7 @@ export default {
     },
   }),
   created() {
-    console.log(this.urlContains("edit"));
+    console.log(this.list);
     if (this.urlContains("edit") || this.urlContains("task"))
       axios
         .get(`http://localhost:3000/todos/${this.id}`)
@@ -157,6 +158,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    if (this.list !== undefined) {
+      this.form.list = this.list.toLowerCase();
+    }
   },
   methods: {
     urlContains(pageName) {

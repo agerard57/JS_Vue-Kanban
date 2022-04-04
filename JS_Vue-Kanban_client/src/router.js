@@ -20,6 +20,7 @@ export default new Router({
     },
     {
       path: "/add",
+      props: true,
       name: "Add a new task",
       component: () => import("./views/TaskForm.vue"),
     },

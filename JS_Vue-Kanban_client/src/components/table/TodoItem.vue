@@ -18,7 +18,11 @@
         </div>
       </div>
       <div class="card-body p-3" v-if="index == lastTodo">
-        <a href="#" class="btn btn-primary btn-block">Add new</a>
+        <router-link
+          class="btn btn-primary btn-block"
+          :to="{ name: 'Add a new task', params: { list: todo.list } }"
+          >Add new task in "{{ todo.list.toLowerCase() }}"</router-link
+        >
       </div>
     </div>
   </div>
