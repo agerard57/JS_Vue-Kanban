@@ -44,7 +44,6 @@ export default {
       .get("http://localhost:3000/todos")
       .then((response) => (this.todos = response.data))
       .then((results) => {
-        console.log(results);
         const filteredResults = results.filter(
           (element) => element.list === this.columnTitle
         );
