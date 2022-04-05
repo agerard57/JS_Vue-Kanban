@@ -17,6 +17,14 @@ export default {
     PageHeader,
     PageFooter,
   },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        document.title = to.name || "Kanban";
+      },
+    },
+  },
 };
 </script>
 
