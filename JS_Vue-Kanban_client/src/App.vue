@@ -21,7 +21,7 @@ export default {
     $route: {
       immediate: true,
       handler(to) {
-        document.title = to.name || "Kanban";
+        document.title = `${to.name} - Kanban` || "Kanban";
       },
     },
   },
