@@ -44,7 +44,7 @@ exports.update = (req, res) => {
   };
   const findById = { id: req.params.id };
 
-  TodosModel.findOneAndUpdate(findById, updateOptions)
+  TodosModel.findOneAndReplace(findById, updateOptions, { new: true })
     .then((message) => {
       res.json(message);
     })
