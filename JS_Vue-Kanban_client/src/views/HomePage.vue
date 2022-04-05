@@ -1,5 +1,8 @@
 <template>
-  <tasks-table v-bind:data="KanbanColumns" />
+  <main>
+    <p class="text-center">Hello, welcome to this kanban app !</p>
+    <tasks-table v-bind:data="KanbanColumns" />
+  </main>
 </template>
 
 <script>
