@@ -13,19 +13,6 @@ export default new Router({
       path: "/",
       name: "Home page",
       component: HomePage,
-      meta: {
-        title: "Home Page - Kanban",
-        metaTags: [
-          {
-            name: "description",
-            content: "The home page of the kanban app.",
-          },
-          {
-            property: "og:description",
-            content: "The home page of the kanban app.",
-          },
-        ],
-      },
     },
     {
       path: "/todos",
