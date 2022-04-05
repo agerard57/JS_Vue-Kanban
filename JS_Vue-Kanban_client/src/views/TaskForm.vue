@@ -12,12 +12,14 @@
             class="form-control"
             aria-describedby="titleHelpBlock"
             required="required"
+            maxlength="50"
           />
           <span
             id="titleHelpBlock"
             class="form-text text-muted"
             v-if="!this.urlContains('task')"
-            >Enter the task title here...</span
+            >Enter the task title here... (
+            {{ this.charactersLeft("title", 50) }} )</span
           >
         </div>
         <div class="form-group">
@@ -31,12 +33,14 @@
             class="form-control"
             aria-describedby="descriptionHelpBlock"
             required="required"
+            maxlength="500"
           ></textarea>
           <span
             id="descriptionHelpBlock"
             class="form-text text-muted"
             v-if="!this.urlContains('task')"
-            >Enter your desctiption here...</span
+            >Enter your desctiption here... (
+            {{ this.charactersLeft("description", 500) }} )</span
           >
         </div>
         <div class="form-group">
@@ -153,6 +157,12 @@ export default {
     }
   },
   methods: {
+    charactersLeft(input, maxLength) {
+      const formInput = this.form[input];
+      return `${
+        maxLength - formInput.length
+      } / ${maxLength} characters remaining`;
+    },
     urlContains(pageName) {
       return this.$route.path.includes(pageName);
     },
