@@ -1,5 +1,5 @@
 <template>
-  <main class="container p-0">
+  <div class="container p-0">
     <div class="row">
       <kanban-column
         v-for="column in data"
@@ -9,7 +9,7 @@
         v-bind:col-size="getColSize"
       />
     </div>
-  </main>
+  </div>
 </template>
 
 <script>
