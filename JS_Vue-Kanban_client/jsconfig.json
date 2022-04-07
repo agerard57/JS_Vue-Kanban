@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "baseUrl": "./",
+    "baseUrl": "./JS_Vue-Kanban_client",
     "moduleResolution": "node",
     "paths": {
       "@/*": [
