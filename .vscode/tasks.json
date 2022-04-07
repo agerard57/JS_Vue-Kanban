@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "tasks": [
-         {
+    {
       "label": "Run the client",
       "type": "npm",
       "script": "start:client",
@@ -19,8 +19,8 @@
     },
     {
       "label": "Run the server",
-      "command": "PORT=${input:port} npm run start:server",
-      "type": "shell",
+      "type": "npm",
+      "script": "start:server",
       "promptOnClose": false,
       "problemMatcher": [],
       "presentation": {
@@ -32,14 +32,6 @@
       "runOptions": {
         "runOn": "folderOpen"
       }
-    }
-  ],
-  "inputs": [
-    {
-      "id": "port",
-      "description": "Enter your port",
-      "default": "3000",
-      "type": "promptString"
     }
   ]
 }

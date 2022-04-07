@@ -4,15 +4,12 @@ const mongoose = require("mongoose");
 const dotEnv = require("dotenv");
 
 const getRoutes = require("./src/routes");
-const normalizePort = require("./src/utils/normalizePort");
+const serverConfig = require("./src/config/server.config");
 
 const app = express();
 
 // Load the dotEnv lib and env vars declaration
 dotEnv.config();
-
-// Port declaration
-const port = normalizePort(process.env.PORT);
 
 // Controllers or Routes
 getRoutes(app);
@@ -30,7 +27,7 @@ const server = mongoose.connect(
 
 // Setup server to start listening
 server.then(() => {
-  app.listen(port, consoleMessage(port));
+  app.listen(serverConfig.PORT, consoleMessage(serverConfig.PORT));
 });
 
 // Error checker for mongoose
