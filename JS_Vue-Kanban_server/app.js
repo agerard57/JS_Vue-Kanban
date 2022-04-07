@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const dotEnv = require("dotenv");
 
 const getRoutes = require("./src/routes");
-const serverConfig = require("./src/config/server.config");
 
 const app = express();
 
@@ -26,6 +25,7 @@ const server = mongoose.connect(
 );
 
 // Setup server to start listening
+const serverConfig = require("./src/config/server.config");
 server.then(() => {
   app.listen(serverConfig.PORT, consoleMessage(serverConfig.PORT));
 });
