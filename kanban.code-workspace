@@ -43,7 +43,10 @@
       "agerard",
       "browserslist",
       "esbenp",
-      "todohighlight"
+      "scripthost",
+      "signin",
+      "todohighlight",
+      "vuex"
     ]
   },
   "extensions": {
