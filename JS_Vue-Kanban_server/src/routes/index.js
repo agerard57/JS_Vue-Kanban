@@ -12,6 +12,7 @@ module.exports = function routes(app) {
 
   // ///////
   // Routes
+  require("./auth.routes")(app);
   require("./home.routes")(app);
   require("./todos.routes")(app);
 

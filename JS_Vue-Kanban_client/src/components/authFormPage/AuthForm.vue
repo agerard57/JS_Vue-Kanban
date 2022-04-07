@@ -28,13 +28,14 @@
       />
       <label class="btn btn-outline-primary" for="login-btn">Login</label>
     </div>
-    <form>
+    <form v-on:submit.prevent="submitAuthForm">
       <div class="form-group" v-if="this.authType == 'signup'">
         <label for="email">Email</label>
         <input
           id="email"
           name="email"
           type="email"
+          v-model="form.email"
           aria-describedby="emailHelpBlock"
           required="required"
           class="form-control"
@@ -83,6 +84,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "AuthForm",
   data: () => ({
@@ -94,7 +97,32 @@ export default {
     authType: "signup",
   }),
   created() {
-    console.log(this.authType.login);
+    console.log(this.form);
+  },
+  methods: {
+    submitAuthForm() {
+      if (this.authType === "signup")
+        axios
+          .post("http://localhost:3000/signup/", this.form)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      else
+        axios
+          .post("http://localhost:3000/login/", {
+            username: this.form.username,
+            password: this.form.password,
+          })
+          .then((res) => {
+            console.log(res.data.accessToken);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
   },
 };
 </script>

@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/agerard57/JS_Vue-Kanban/issues"
   },
-  "homepage": "https://github.com/agerard57/JS_Vue-Kanban#readme"
+  "homepage": "https://github.com/agerard57/JS_Vue-Kanban#readme",
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^5.0.4"
+  }
 }
