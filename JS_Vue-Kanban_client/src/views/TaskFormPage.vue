@@ -1,5 +1,5 @@
 <template>
-  <task-form list="list" id="id" />
+  <task-form v-bind:list="this.list" v-bind:id="this.id" />
 </template>
 
 <script>
