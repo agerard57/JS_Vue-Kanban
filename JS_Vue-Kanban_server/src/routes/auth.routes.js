@@ -24,4 +24,7 @@ module.exports = function (app) {
 
   // POST login user
   app.post("/login", authController.login);
+
+  // POST JWT token refresh
+  app.post("/refreshtoken", authController.refreshToken);
 };

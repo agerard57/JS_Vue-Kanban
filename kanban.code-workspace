@@ -43,9 +43,11 @@
       "agerard",
       "browserslist",
       "esbenp",
+      "refreshtoken",
       "scripthost",
       "signin",
       "todohighlight",
+      "uuidv",
       "vuex"
     ]
   },
