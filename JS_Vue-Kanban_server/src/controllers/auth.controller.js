@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const jwtConfig = require("../config/jwt.config");
 const UsersModel = require("../models/users.model");
 
+// //////////////////
+// Sign up controller
 exports.signup = (req, res) => {
   const addOptions = {
     email: req.body.email,
@@ -22,6 +24,8 @@ exports.signup = (req, res) => {
     });
 };
 
+// //////////////////
+// Log in controller
 exports.login = (req, res) => {
   const username = req.body.username;
   UsersModel.findOne({ username: username }).exec(async (err, user) => {

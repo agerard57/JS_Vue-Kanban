@@ -2,6 +2,7 @@ const authController = require("../controllers/auth.controller");
 const { verifySignUp } = require("../middlewares");
 
 module.exports = function (app) {
+  // Apply our custom header with JWT token
   app.use(function (_req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",

@@ -1,11 +1,15 @@
 const TodosModel = require("../models/todos.model");
 
+// //////////////////
+// Get all controller
 exports.getAll = (_req, res) => {
   TodosModel.find().then((todos) => {
     res.json(todos);
   });
 };
 
+// //////////////////
+// Get one controller
 exports.getOne = (req, res) => {
   const id = req.params.id;
   TodosModel.findOne({ id: id }).then((todos) => {
@@ -13,6 +17,8 @@ exports.getOne = (req, res) => {
   });
 };
 
+// //////////////////
+// Add controller
 exports.add = (req, res) => {
   const addOptions = {
     title: req.body.title,
@@ -36,6 +42,8 @@ exports.add = (req, res) => {
     });
 };
 
+// //////////////////
+// Update controller
 exports.update = (req, res) => {
   const updateOptions = {
     title: req.body.title,
@@ -56,6 +64,8 @@ exports.update = (req, res) => {
     });
 };
 
+// //////////////////
+// Delete controller
 exports.delete = (req, res) => {
   const id = req.params.id;
   TodosModel.deleteOne({ id: id }, (err) => {

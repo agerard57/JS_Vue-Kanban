@@ -36,7 +36,8 @@ const checkDuplicateEmail = (req, res, next) => {
 
 const checkUsername = (req, res, next) => {
   const username = req.body.username;
-  const illegalChars = /\W/; // Not word - Allow only letters, numbers, and underscores
+  // Only allows letters, numbers, and underscores
+  const illegalChars = /\W/;
   if (illegalChars.test(username))
     return res.status(403).send({
       message: "Username has illegal characters",
