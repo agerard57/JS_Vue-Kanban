@@ -35,7 +35,7 @@
 <script>
 import CardButtons from "./CardButtons.vue";
 import FavouriteStar from "./FavouriteStar.vue";
-import api from "../../services/api";
+import CardsService from "../../services/cards.service";
 
 export default {
   name: "TodoItem",
@@ -46,7 +46,7 @@ export default {
     todos: [],
   }),
   mounted() {
-    api.get("/todos").then((results) => {
+    CardsService.getAllCards().then((results) => {
       let filteredResults = results.data.filter(
         (element) => element.list === this.columnTitle
       );

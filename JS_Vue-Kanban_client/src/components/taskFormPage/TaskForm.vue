@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import api from "../../services/api";
+import CardsService from "../../services/cards.service";
 
 export default {
   name: "AuthForm",
@@ -155,8 +155,7 @@ export default {
   },
   created() {
     if (this.urlContains("edit") || this.urlContains("task")) {
-      api
-        .get(`/todos/${this.id}`)
+      CardsService.getCard(this.id)
         .then((task) => {
           this.form.title = task.data.title;
           this.form.description = task.data.description;
@@ -193,26 +192,12 @@ export default {
       this.$router.push("/todos");
     },
     submitTaskForm() {
+      this.form.author = this.currentUser;
+
       if (this.urlContains("edit")) {
-        this.form.author = this.currentUser;
-        api
-          .put(`/todos/${this.id}`, this.form)
-          .then((task) => {
-            this.actionConfirmation(task, "edited");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        CardsService.editCard(this.id, this.form, this.$toast, this.$router);
       } else if (this.urlContains("add")) {
-        this.form.author = this.currentUser;
-        api
-          .post("/todos", this.form)
-          .then((task) => {
-            this.actionConfirmation(task, "added");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        CardsService.addCard(this.form, this.$toast, this.$router);
       }
     },
   },

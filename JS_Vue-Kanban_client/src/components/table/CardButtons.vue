@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import api from "../../services/api";
+import CardsService from "../../services/cards.service";
 
 export default {
   name: "CardButtons",
@@ -31,12 +31,7 @@ export default {
   },
   methods: {
     deleteButtonAction() {
-      api.delete(`/todos/${this.id}`).then(() => {
-        this.$toast.info("Your task has been deleted.", {
-          position: "top-right",
-        });
-        this.$router.push("/");
-      });
+      CardsService.deleteCard(this.id, this.$toast, this.$router);
     },
   },
 };
