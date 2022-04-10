@@ -166,7 +166,7 @@ export default {
   },
   mounted() {
     if (this.loggedIn) {
-      this.$router.push("/");
+      this.$router.push("/login-message");
     }
   },
   created() {

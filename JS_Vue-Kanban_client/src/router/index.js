@@ -48,5 +48,10 @@ export default new Router({
       name: "Page not found",
       component: () => import("../views/NotFound.vue"),
     },
+    {
+      path: "/login-message",
+      name: "Login message",
+      component: () => import("../views/AuthMessage.vue"),
+    },
   ],
 });

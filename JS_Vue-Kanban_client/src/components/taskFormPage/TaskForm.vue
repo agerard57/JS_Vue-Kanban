@@ -203,7 +203,7 @@ export default {
   },
   mounted() {
     if (!this.loggedIn && !this.urlContains("task")) {
-      this.$router.push("/todos");
+      this.$router.push("/login-message");
     }
   },
 };
