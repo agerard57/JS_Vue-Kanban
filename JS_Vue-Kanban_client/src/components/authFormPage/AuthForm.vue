@@ -40,7 +40,7 @@
           v-model="user.email"
           v-validate="'required|email|max:50'"
           aria-describedby="emailHelpBlock"
-          class="form-control"
+          class="form-control border-secondary"
         />
         <div v-if="submitted && errors.has('email')" class="alert-danger">
           {{ errors.first("email") }}
@@ -59,7 +59,7 @@
           type="text"
           aria-describedby="usernameHelpBlock"
           v-validate="'required|min:5|max:50'"
-          class="form-control"
+          class="form-control border-secondary"
         />
         <div v-if="submitted && errors.has('username')" class="alert-danger">
           {{ errors.first("username") }}
@@ -80,7 +80,7 @@
           :class="{ 'is-danger': errors.has('pwd') }"
           type="password"
           aria-describedby="pwdHelpBlock"
-          class="form-control"
+          class="form-control border-secondary"
           ref="pwd"
         />
         <div v-if="submitted && errors.has('pwd')" class="alert-danger">
@@ -100,7 +100,7 @@
           v-validate="'required'"
           type="password"
           aria-describedby="pwdHelpBlock"
-          class="form-control"
+          class="form-control border-secondary"
         />
         <span id="pwdHelpBlock" class="form-text text-muted"
           >Enter your password here...</span
@@ -115,7 +115,7 @@
           v-validate="'required|confirmed:pwd'"
           type="password"
           aria-describedby="pwdconfirmHelpBlock"
-          class="form-control"
+          class="form-control border-secondary"
           :class="{ 'is-danger': errors.has('pwdconfirm') }"
           data-vv-as="password confirmation"
         />

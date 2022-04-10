@@ -1,6 +1,6 @@
 <template>
   <div v-bind:class="['col-12', 'col-lg-' + colSize, 'col-xl-' + colSize]">
-    <div class="card card-border-primary">
+    <div class="card border-dark card-border-primary">
       <div class="card-header">
         <h5 class="card-title">{{ title }}</h5>
         <h6 class="card-subtitle text-muted">

@@ -5,7 +5,7 @@
       v-for="(todo, index) in todos"
       :key="todo.id"
     >
-      <div class="card mb-3 bg-light">
+      <div class="card border-secondary mb-3 bg-light">
         <div class="card-body p-3">
           <div class="mr-n2">
             <favourite-star v-bind:is-favourite="todo.fav" />
