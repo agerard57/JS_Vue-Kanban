@@ -23,12 +23,15 @@ import CardsService from "../../services/cards.service";
 
 export default {
   name: "CardButtons",
+
   props: ["id"],
+
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
   },
+
   methods: {
     deleteButtonAction() {
       CardsService.deleteCard(this.id, this.$toast, this.$router);

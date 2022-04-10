@@ -7,6 +7,7 @@ import AuthForm from "../components/authFormPage/AuthForm";
 
 export default {
   name: "AuthFormPage",
+
   components: {
     AuthForm,
   },

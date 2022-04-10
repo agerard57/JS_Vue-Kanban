@@ -2,6 +2,7 @@ import axiosInstance from "./axiosInstance";
 import TokenService from "./token.service";
 
 class AuthService {
+  // Logs in
   async login({ username, password }) {
     const response = await axiosInstance.post("/login", {
       username,
@@ -13,10 +14,12 @@ class AuthService {
     return response.data;
   }
 
+  // Logs out
   logout() {
     TokenService.removeUser();
   }
 
+  // Registers
   register({ username, email, password }) {
     return axiosInstance.post("/signup", {
       username,

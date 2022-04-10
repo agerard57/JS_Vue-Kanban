@@ -1,7 +1,9 @@
 <template>
   <div class="container text-center">
     <form v-on:submit.prevent="submitTaskForm">
+      <!-- Disable all form inputs if view page -->
       <fieldset :disabled="this.urlContains('task')">
+        <!-- TASK TITLE input -->
         <div class="form-group">
           <label for="title">Task title</label>
           <input
@@ -22,6 +24,7 @@
             {{ this.charactersLeft("title", 50) }} )</span
           >
         </div>
+        <!-- TASK DESCRIPTION input -->
         <div class="form-group">
           <label for="description">Task description</label>
           <textarea
@@ -43,6 +46,7 @@
             {{ this.charactersLeft("description", 500) }} )</span
           >
         </div>
+        <!-- LIST input -->
         <div class="form-group">
           <label for="list">List</label>
           <div>
@@ -67,6 +71,7 @@
             >
           </div>
         </div>
+        <!-- FAV input -->
         <div class="form-group">
           <label>Task as favourite ?</label>
           <div>
@@ -103,6 +108,7 @@
           </div>
         </div>
       </fieldset>
+      <!-- SUBMIT button -->
       <div class="form-group">
         <button
           name="submit"
@@ -130,7 +136,9 @@ import CardsService from "../../services/cards.service";
 
 export default {
   name: "AuthForm",
+
   props: ["id", "list"],
+
   data: () => ({
     form: {
       title: "",
@@ -140,19 +148,24 @@ export default {
       author: "",
     },
   }),
+
   computed: {
     currentUser() {
       return this.$store.state.auth.user.username;
     },
+
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
+
     buttonLabel() {
       if (this.urlContains("edit")) return "Edit";
       else if (this.urlContains("add")) return "Add";
       else return null;
     },
   },
+
+  // Populate form if page !== view
   created() {
     if (this.urlContains("edit") || this.urlContains("task")) {
       CardsService.getCard(this.id)
@@ -172,6 +185,7 @@ export default {
       this.form.list = this.list.toLowerCase();
     }
   },
+
   methods: {
     charactersLeft(input, maxLength) {
       const formInput = this.form[input];
@@ -179,9 +193,11 @@ export default {
         maxLength - formInput.length
       } / ${maxLength} characters remaining`;
     },
+
     urlContains(pageName) {
       return this.$route.path.includes(pageName);
     },
+
     actionConfirmation(task, action) {
       this.$toast.success(
         `You have successfully ${action} ${task.data.title}!`,
@@ -191,6 +207,7 @@ export default {
       );
       this.$router.push("/todos");
     },
+
     submitTaskForm() {
       this.form.author = this.currentUser;
 
@@ -201,6 +218,7 @@ export default {
       }
     },
   },
+
   mounted() {
     if (!this.loggedIn && !this.urlContains("task")) {
       this.$router.push("/login-message");

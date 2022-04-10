@@ -7,9 +7,12 @@ import TasksTable from "../components/table/TasksTable.vue";
 
 export default {
   name: "App",
+
   components: {
     TasksTable,
   },
+
+  // Colums titles and descriptions
   data: () => ({
     KanbanColumns: [
       { title: "Todo", description: "See all tasks you have yet to do!" },

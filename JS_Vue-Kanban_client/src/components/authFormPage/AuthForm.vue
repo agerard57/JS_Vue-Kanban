@@ -136,7 +136,7 @@
       <div
         v-if="message"
         class="alert form-group"
-        :class="register.successful ? 'alert-success' : 'alert-danger'"
+        :class="registerSuccessful ? 'alert-success' : 'alert-danger'"
       >
         {{ message }}
       </div>
@@ -149,29 +149,31 @@ import User from "../../models/user";
 
 export default {
   name: "AuthForm",
+
   data: () => ({
-    user: new User("", "", ""),
-    register: {
-      successful: false,
-    },
-    message: "",
-    submitted: false,
     authType: "signup",
-    loading: false,
+    message: "",
+    registerSuccessful: false,
+    submitted: false,
+    user: new User("", "", ""),
   }),
+
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
   },
+
   mounted() {
     if (this.loggedIn) {
       this.$router.push("/login-message");
     }
   },
+
   created() {
     console.log(this.user);
   },
+
   methods: {
     submitAuthForm() {
       /* Signup form submitted */
@@ -183,7 +185,7 @@ export default {
             this.$store.dispatch("auth/register", this.user).then(
               (data) => {
                 this.message = `The account for ${data.username} has been successfully created`;
-                this.register.successful = true;
+                this.registerSuccessful = true;
                 this.authType = "login";
               },
               (error) => {
@@ -194,11 +196,12 @@ export default {
                   error.message ||
                   error.toString();
                 console.log("error");
-                this.register.successful = false;
+                this.registerSuccessful = false;
               }
             );
           }
         });
+
         /* Login form submitted */
       } else {
         if (this.user.username && this.user.password) {
@@ -213,7 +216,6 @@ export default {
               this.$router.push("/");
             },
             (error) => {
-              this.loading = false;
               this.message =
                 (error.response &&
                   error.response.data &&

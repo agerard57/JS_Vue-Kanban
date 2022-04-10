@@ -11,10 +11,12 @@
 <script>
 export default {
   name: "AuthMessage",
+
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
+
     message() {
       if (this.loggedIn) return "Oops, it seems you are already logged in !";
       else return "Oops, you must be logged to see this page";

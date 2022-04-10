@@ -24,11 +24,13 @@
 <script>
 export default {
   name: "PageHeader",
+
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
   },
+
   methods: {
     logOut() {
       this.$store.dispatch("auth/logout");

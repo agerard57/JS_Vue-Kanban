@@ -39,12 +39,16 @@ import CardsService from "../../services/cards.service";
 
 export default {
   name: "TodoItem",
+
   props: ["columnTitle"],
+
   components: { CardButtons, FavouriteStar },
+
   data: () => ({
     error: "",
     todos: [],
   }),
+
   mounted() {
     CardsService.getAllCards().then((results) => {
       let filteredResults = results.data.filter(
@@ -61,6 +65,7 @@ export default {
       this.todos = filteredResults;
     });
   },
+
   computed: {
     lastTodo() {
       return (
@@ -68,9 +73,11 @@ export default {
           .length - 1
       );
     },
+
     isHomePage() {
       return this.$route.name === "Home page";
     },
+
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },

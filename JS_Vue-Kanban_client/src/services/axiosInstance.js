@@ -3,7 +3,7 @@ import TokenService from "./token.service";
 
 const apiHeaders = () => {
   const token = TokenService.getLocalAccessToken();
-  console.log(token);
+
   if (token) {
     return {
       "Content-Type": "application/json",

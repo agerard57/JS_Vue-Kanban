@@ -12,16 +12,20 @@ import TasksTable from "../components/table/TasksTable.vue";
 
 export default {
   name: "HomePage",
+
   components: {
     TasksTable,
   },
+
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     },
+
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
+
     welcomeMessage() {
       if (this.loggedIn)
         return `Welcome back ${this.currentUser.username}, welcome to your kanban!`;
@@ -29,6 +33,8 @@ export default {
         return "Welcome to our kanban app, log in if you want to make modifications or whatnot";
     },
   },
+
+  // Colums titles and descriptions
   data: () => ({
     KanbanColumns: [
       { title: "Latest tasks", description: "See the three latest tasks" },

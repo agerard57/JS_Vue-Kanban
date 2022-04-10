@@ -17,10 +17,13 @@ import KanbanColumn from "./KanbanColumn.vue";
 
 export default {
   name: "TasksTables",
+
   props: ["data"],
+
   components: {
     KanbanColumn,
   },
+
   computed: {
     getColSize() {
       return 12 / this.data.length;

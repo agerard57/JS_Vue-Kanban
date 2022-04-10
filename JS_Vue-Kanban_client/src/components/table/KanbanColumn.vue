@@ -17,7 +17,9 @@ import TodoItem from "./TodoItem.vue";
 
 export default {
   name: "KanbanColumn",
+
   components: { TodoItem },
+
   props: ["title", "description", "colSize"],
 };
 </script>
