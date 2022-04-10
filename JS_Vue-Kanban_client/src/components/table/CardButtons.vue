@@ -5,29 +5,38 @@
       :to="{ name: 'View task', params: { id: id } }"
       >View</router-link
     >
-    <router-link
-      class="btn btn-outline-secondary btn-sm"
-      :to="{ name: 'Edit task', params: { id: id } }"
-      >Edit</router-link
-    >
-    <a class="btn btn-outline-danger btn-sm" @click="deleteButtonAction"
-      >Delete</a
-    >
+    <span v-if="loggedIn">
+      <router-link
+        class="btn btn-outline-secondary btn-sm"
+        :to="{ name: 'Edit task', params: { id: id } }"
+        >Edit</router-link
+      >
+      <a class="btn btn-outline-danger btn-sm" @click="deleteButtonAction"
+        >Delete</a
+      >
+    </span>
   </span>
 </template>
 
 <script>
-import axios from "axios";
+import api from "../../services/api";
 
 export default {
   name: "CardButtons",
   props: ["id"],
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
   methods: {
     deleteButtonAction() {
-      axios
-        .delete(`http://localhost:3000/todos/${this.id}`)
-        .then((response) => (this.todos = response.data))
-        .then(location.reload());
+      api.delete(`/todos/${this.id}`).then(() => {
+        this.$toast.info("Your task has been deleted.", {
+          position: "top-right",
+        });
+        this.$router.push("/");
+      });
     },
   },
 };

@@ -110,7 +110,7 @@
           class="btn btn-success"
           v-if="!this.urlContains('task')"
         >
-          Add your task
+          {{ buttonLabel }} your task
         </button>
         <button
           type="button"
@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "../../services/api";
 
 export default {
   name: "AuthForm",
@@ -137,12 +137,26 @@ export default {
       description: "",
       list: "",
       fav: "",
+      author: "",
     },
   }),
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user.username;
+    },
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+    buttonLabel() {
+      if (this.urlContains("edit")) return "Edit";
+      else if (this.urlContains("add")) return "Add";
+      else return null;
+    },
+  },
   created() {
-    if (this.urlContains("edit") || this.urlContains("task"))
-      axios
-        .get(`http://localhost:3000/todos/${this.id}`)
+    if (this.urlContains("edit") || this.urlContains("task")) {
+      api
+        .get(`/todos/${this.id}`)
         .then((task) => {
           this.form.title = task.data.title;
           this.form.description = task.data.description;
@@ -152,6 +166,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    } else {
+      this.form.fav = false;
+    }
     if (this.list !== undefined) {
       this.form.list = this.list.toLowerCase();
     }
@@ -166,27 +183,43 @@ export default {
     urlContains(pageName) {
       return this.$route.path.includes(pageName);
     },
-    submitTaskForm() {
-      if (this.urlContains("edit"))
-        axios
-          .put(`http://localhost:3000/todos/${this.id}`, this.form)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      else if (this.urlContains("add"))
-        axios
-          .post("http://localhost:3000/todos/", this.form)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+    actionConfirmation(task, action) {
+      this.$toast.success(
+        `You have successfully ${action} ${task.data.title}!`,
+        {
+          position: "top-right",
+        }
+      );
       this.$router.push("/todos");
     },
+    submitTaskForm() {
+      if (this.urlContains("edit")) {
+        this.form.author = this.currentUser;
+        api
+          .put(`/todos/${this.id}`, this.form)
+          .then((task) => {
+            this.actionConfirmation(task, "edited");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (this.urlContains("add")) {
+        this.form.author = this.currentUser;
+        api
+          .post("/todos", this.form)
+          .then((task) => {
+            this.actionConfirmation(task, "added");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+  },
+  mounted() {
+    if (!this.loggedIn && !this.urlContains("task")) {
+      this.$router.push("/todos");
+    }
   },
 };
 </script>

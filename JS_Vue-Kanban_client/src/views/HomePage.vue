@@ -1,6 +1,8 @@
 <template>
   <main>
-    <p class="text-center">Hello, welcome to this kanban app !</p>
+    <h3 class="text-center space">
+      {{ welcomeMessage }}
+    </h3>
     <tasks-table v-bind:data="KanbanColumns" />
   </main>
 </template>
@@ -13,6 +15,20 @@ export default {
   components: {
     TasksTable,
   },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+    welcomeMessage() {
+      if (this.loggedIn)
+        return `Welcome back ${this.currentUser.username}, welcome to your kanban!`;
+      else
+        return "Welcome to our kanban app, log in if you want to make modifications or whatnot";
+    },
+  },
   data: () => ({
     KanbanColumns: [
       { title: "Latest tasks", description: "See the three latest tasks" },
@@ -21,3 +37,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+.space {
+  padding: 0 0 20px 0;
+}
+</style>
