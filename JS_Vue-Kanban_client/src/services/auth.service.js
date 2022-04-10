@@ -1,9 +1,9 @@
-import api from "./api";
+import axiosInstance from "./axiosInstance";
 import TokenService from "./token.service";
 
 class AuthService {
   async login({ username, password }) {
-    const response = await api.post("/login", {
+    const response = await axiosInstance.post("/login", {
       username,
       password,
     });
@@ -18,7 +18,7 @@ class AuthService {
   }
 
   register({ username, email, password }) {
-    return api.post("/signup", {
+    return axiosInstance.post("/signup", {
       username,
       email,
       password,
