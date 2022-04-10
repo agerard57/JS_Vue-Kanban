@@ -12,6 +12,7 @@ const TodosSchema = mongoose.Schema(
       set: (list) => list.toUpperCase(),
     },
     fav: { type: Boolean, default: false },
+    author: { type: String, default: "Unknown" },
   },
   { toJSON: { getters: true } }
 );

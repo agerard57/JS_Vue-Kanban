@@ -19,6 +19,7 @@ exports.add = (req, res) => {
     description: req.body.description,
     list: req.body.list,
     fav: req.body.fav,
+    author: req.body.author,
   };
   console.log(req.body);
 
@@ -41,6 +42,7 @@ exports.update = (req, res) => {
     description: req.body.description,
     list: req.body.list,
     fav: req.body.fav,
+    author: req.body.author,
   };
   const findById = { id: req.params.id };
 
