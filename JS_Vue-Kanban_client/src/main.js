@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VeeValidate from "vee-validate";
+import VueToast from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 
 import App from "./App.vue";
 import router from "./router";
@@ -11,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
+Vue.use(VueToast);
 Vue.config.productionTip = false;
 
 new Vue({
