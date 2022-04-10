@@ -2,7 +2,7 @@ const authController = require("../controllers/auth.controller");
 const { verifySignUp } = require("../middlewares");
 
 module.exports = function (app) {
-  app.use(function (req, res, next) {
+  app.use(function (_req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"
@@ -12,11 +12,10 @@ module.exports = function (app) {
 
   // POST new user
   app.post(
-    "/signup/",
+    "/signup",
     [
       verifySignUp.checkDuplicateUser,
       verifySignUp.checkDuplicateEmail,
-      verifySignUp.checkPassword,
       verifySignUp.checkUsername,
     ],
     authController.signup
@@ -24,7 +23,4 @@ module.exports = function (app) {
 
   // POST login user
   app.post("/login", authController.login);
-
-  // POST JWT token refresh
-  app.post("/refreshtoken", authController.refreshToken);
 };

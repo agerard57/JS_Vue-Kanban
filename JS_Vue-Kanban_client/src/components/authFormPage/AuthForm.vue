@@ -6,6 +6,7 @@
       role="group"
       aria-label="Signup/Login buttons"
     >
+      <!-- SIGNUP / LOGIN radio button -->
       <input
         type="radio"
         v-model="authType"
@@ -29,99 +30,200 @@
       <label class="btn btn-outline-primary" for="login-btn">Login</label>
     </div>
     <form v-on:submit.prevent="submitAuthForm">
+      <!-- EMAIL input -->
       <div class="form-group" v-if="this.authType == 'signup'">
         <label for="email">Email</label>
         <input
           id="email"
           name="email"
           type="email"
-          v-model="form.email"
+          v-model="user.email"
+          v-validate="'required|email|max:50'"
           aria-describedby="emailHelpBlock"
-          required="required"
           class="form-control"
         />
+        <div v-if="submitted && errors.has('email')" class="alert-danger">
+          {{ errors.first("email") }}
+        </div>
         <span id="emailHelpBlock" class="form-text text-muted"
           >Enter your email here...</span
         >
       </div>
+      <!-- USERNAME input -->
       <div class="form-group">
         <label for="username">Username</label>
         <input
           id="username"
           name="username"
-          v-model="form.username"
+          v-model="user.username"
           type="text"
           aria-describedby="usernameHelpBlock"
-          required="required"
+          v-validate="'required|min:5|max:50'"
           class="form-control"
         />
+        <div v-if="submitted && errors.has('username')" class="alert-danger">
+          {{ errors.first("username") }}
+        </div>
         <span id="usernameHelpBlock" class="form-text text-muted"
           >Enter your username here...</span
         >
       </div>
-      <div class="form-group">
+      <!-- PASSWORD SIGNUP input -->
+      <div class="form-group" v-if="this.authType === 'signup'">
         <label for="pwd">Password</label>
         <input
           id="pwd"
           name="pwd"
-          v-model="form.password"
+          v-model="user.password"
+          v-validate="'required'"
+          data-vv-as="password"
+          :class="{ 'is-danger': errors.has('pwd') }"
           type="password"
           aria-describedby="pwdHelpBlock"
-          required="required"
+          class="form-control"
+          ref="pwd"
+        />
+        <div v-if="submitted && errors.has('pwd')" class="alert-danger">
+          {{ errors.first("pwd") }}
+        </div>
+        <span id="pwdHelpBlock" class="form-text text-muted"
+          >Enter your password here...</span
+        >
+      </div>
+      <div class="form-group" v-else>
+        <!-- PASSWORD LOGIN input -->
+        <label for="pwd">Password</label>
+        <input
+          id="pwd"
+          name="pwd"
+          v-model="user.password"
+          v-validate="'required'"
+          type="password"
+          aria-describedby="pwdHelpBlock"
           class="form-control"
         />
         <span id="pwdHelpBlock" class="form-text text-muted"
           >Enter your password here...</span
         >
       </div>
+      <!-- PASSWORD CONFIRMATION input -->
+      <div class="form-group" v-if="this.authType === 'signup'">
+        <label for="pwdconfirm">Confirm Password</label>
+        <input
+          id="pwdconfirm"
+          name="pwdconfirm"
+          v-validate="'required|confirmed:pwd'"
+          type="password"
+          aria-describedby="pwdconfirmHelpBlock"
+          class="form-control"
+          :class="{ 'is-danger': errors.has('pwdconfirm') }"
+          data-vv-as="password confirmation"
+        />
+        <div v-if="submitted && errors.has('pwdconfirm')" class="alert-danger">
+          {{ errors.first("pwdconfirm") }}
+        </div>
+        <span id="pwdHelpBlock" class="form-text text-muted"
+          >Enter again your password here...</span
+        >
+      </div>
+      <!-- SUBMIT Button -->
       <div class="form-group">
         <button name="submit" type="submit" class="btn btn-primary">
-          Log in
+          {{ this.authType === "signup" ? "Register" : "Log in" }}
         </button>
+      </div>
+      <!-- ERROR message -->
+      <div
+        v-if="message"
+        class="alert form-group"
+        :class="register.successful ? 'alert-success' : 'alert-danger'"
+      >
+        {{ message }}
       </div>
     </form>
   </main>
 </template>
 
 <script>
-import axios from "axios";
+import User from "../../models/user";
 
 export default {
   name: "AuthForm",
   data: () => ({
-    form: {
-      email: "",
-      username: "",
-      password: "",
+    user: new User("", "", ""),
+    register: {
+      successful: false,
     },
+    message: "",
+    submitted: false,
     authType: "signup",
+    loading: false,
   }),
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  mounted() {
+    if (this.loggedIn) {
+      this.$router.push("/");
+    }
+  },
   created() {
-    console.log(this.form);
+    console.log(this.user);
   },
   methods: {
     submitAuthForm() {
-      if (this.authType === "signup")
-        axios
-          .post("http://localhost:3000/signup/", this.form)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      else
-        axios
-          .post("http://localhost:3000/login/", {
-            username: this.form.username,
-            password: this.form.password,
-          })
-          .then((res) => {
-            console.log(res.data.accessToken);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      /* Signup form submitted */
+      if (this.authType === "signup") {
+        this.message = "";
+        this.submitted = true;
+        this.$validator.validate().then((isValid) => {
+          if (isValid) {
+            this.$store.dispatch("auth/register", this.user).then(
+              (data) => {
+                this.message = `The account for ${data.username} has been successfully created`;
+                this.register.successful = true;
+                this.authType = "login";
+              },
+              (error) => {
+                this.message =
+                  (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+                console.log("error");
+                this.register.successful = false;
+              }
+            );
+          }
+        });
+        /* Login form submitted */
+      } else {
+        if (this.user.username && this.user.password) {
+          this.$store.dispatch("auth/login", this.user).then(
+            () => {
+              this.$toast.success(
+                `You are now connected as ${this.user.username}.`,
+                {
+                  position: "top-right",
+                }
+              );
+              this.$router.push("/");
+            },
+            (error) => {
+              this.loading = false;
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+            }
+          );
+        }
+      }
     },
   },
 };

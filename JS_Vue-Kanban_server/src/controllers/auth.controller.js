@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const jwtConfig = require("../config/jwt.config");
 const UsersModel = require("../models/users.model");
-const RefreshTokenModel = require("../models/refreshToken.model");
 
 exports.signup = (req, res) => {
   const addOptions = {
@@ -44,62 +43,12 @@ exports.login = (req, res) => {
         message: "Wrong password",
       });
 
-    const token = jwt.sign({ username: user.username }, jwtConfig.KEY, {
-      expiresIn: jwtConfig.jwtExpirationDelay,
-    });
-
-    const refreshToken = await RefreshTokenModel.createToken(user);
+    const token = jwt.sign({ username: user.username }, jwtConfig.KEY);
 
     res.status(200).send({
       username: user.username,
       email: user.email,
       accessToken: token,
-      refreshToken: refreshToken,
     });
   });
-};
-
-exports.refreshToken = async (req, res) => {
-  const { refreshToken: requestToken } = req.body;
-
-  if (requestToken == null) {
-    return res.status(403).json({ message: "Refresh Token is required!" });
-  }
-
-  try {
-    let refreshToken = await RefreshTokenModel.findOne({
-      token: requestToken,
-    });
-
-    if (!refreshToken) {
-      res.status(403).json({ message: "Refresh token is not in database!" });
-      return;
-    }
-
-    if (RefreshTokenModel.verifyExpiration(refreshToken)) {
-      RefreshTokenModel.findByIdAndRemove(refreshToken._id, {
-        useFindAndModify: false,
-      }).exec();
-
-      res.status(403).json({
-        message: "Refresh token was expired. Please make a new login request",
-      });
-      return;
-    }
-
-    let newAccessToken = jwt.sign(
-      { id: refreshToken.user._id },
-      jwtConfig.KEY,
-      {
-        expiresIn: jwtConfig.jwtExpirationDelay,
-      }
-    );
-
-    return res.status(200).json({
-      accessToken: newAccessToken,
-      refreshToken: refreshToken.token,
-    });
-  } catch (err) {
-    return res.status(500).send({ message: err });
-  }
 };
