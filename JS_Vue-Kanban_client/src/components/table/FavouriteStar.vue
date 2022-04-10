@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "FavouriteButton",
+  name: "FavouriteStar",
   props: ["isFavourite"],
 };
 </script>
