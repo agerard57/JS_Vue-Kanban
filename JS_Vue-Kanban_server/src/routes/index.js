@@ -14,10 +14,4 @@ module.exports = function routes(app) {
   // Routes
   require("./auth.routes")(app);
   require("./todos.routes")(app);
-
-  // ////////////////////////////////////////
-  // Redirection in case an url doesn't exist
-  app.get("*", (_req, res) => {
-    res.redirect("/");
-  });
 };
